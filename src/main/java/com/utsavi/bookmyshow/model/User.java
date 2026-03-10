@@ -1,0 +1,14 @@
+package com.utsavi.bookmyshow.model;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+import java.util.List;
+
+@Getter
+@EqualsAndHashCode(callSuper = true)
+public class User extends BaseModel{
+  private String name;
+  private String email;
+  private List<Booking> bookings;
+}
