@@ -1,5 +1,9 @@
 package com.utsavi.bookmyshow.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,7 +11,10 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class BaseModel {
+@MappedSuperclass //Map all these attributes to subclasses
+public abstract class BaseModel {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY) //counter - 1,2,3,4...
   private Long id;
   private Date createdAt;
   private Date modifiedAt;

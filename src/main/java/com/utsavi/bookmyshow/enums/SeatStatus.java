@@ -1,7 +1,7 @@
 package com.utsavi.bookmyshow.enums;
 
 public enum SeatStatus {
-  PENDING,
-  FILLED,
-  EMPTY
+  AVAILABLE,
+  BOOKED,
+  OUT_OF_ORDER
 }
