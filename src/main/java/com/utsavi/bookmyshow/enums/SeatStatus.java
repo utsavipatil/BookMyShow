@@ -3,5 +3,6 @@ package com.utsavi.bookmyshow.enums;
 public enum SeatStatus {
   AVAILABLE,
   BOOKED,
-  OUT_OF_ORDER
+  OUT_OF_ORDER,
+  BLOCKED
 }

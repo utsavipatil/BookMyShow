@@ -2,11 +2,7 @@ package com.utsavi.bookmyshow.entity;
 
 import com.utsavi.bookmyshow.enums.PaymentMode;
 import com.utsavi.bookmyshow.enums.PaymentStatus;
-import com.utsavi.bookmyshow.model.BaseModel;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.util.Date;
@@ -18,10 +14,10 @@ public class Payment extends BaseModel {
   private Integer amount;
   private Date time;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   private PaymentMode mode;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   private PaymentStatus paymentStatus;
 
   @ManyToOne

@@ -1,4 +1,4 @@
-package com.utsavi.bookmyshow.model;
+package com.utsavi.bookmyshow.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

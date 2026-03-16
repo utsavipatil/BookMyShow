@@ -1,17 +1,19 @@
 package com.utsavi.bookmyshow.entity;
 
-import com.utsavi.bookmyshow.model.BaseModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
 @Entity
+@Builder
+@Table(name = "users")
 public class User extends BaseModel {
-  private String name;
+  private String username;
   private String email;
 
   @OneToMany

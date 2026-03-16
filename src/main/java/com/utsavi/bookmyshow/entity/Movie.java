@@ -2,7 +2,6 @@ package com.utsavi.bookmyshow.entity;
 
 import com.utsavi.bookmyshow.enums.Feature;
 import com.utsavi.bookmyshow.enums.Language;
-import com.utsavi.bookmyshow.model.BaseModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -18,13 +17,18 @@ public class Movie extends BaseModel {
   private String releaseYear;
 
   @ManyToMany
+  @JoinTable(
+      name = "movie_cast",
+      joinColumns = @JoinColumn(name = "movie_id"),
+      inverseJoinColumns = @JoinColumn(name = "artist_id")
+  )
   private List<Artist> cast;
 
-  @Enumerated //enum is not entity, To show JPA that its entity
+  @Enumerated(EnumType.STRING) //enum is not entity, To show JPA that its entity
   @ElementCollection //When enums have list and wanted to save in DB
   private List<Language>  language;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   @ElementCollection
   private List<Feature> feature;
 }

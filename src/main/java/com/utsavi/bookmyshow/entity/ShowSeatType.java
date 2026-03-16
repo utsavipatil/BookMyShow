@@ -1,15 +1,12 @@
-package com.utsavi.bookmyshow.model;
+package com.utsavi.bookmyshow.entity;
 
-import com.utsavi.bookmyshow.entity.Seat;
-import com.utsavi.bookmyshow.entity.SeatType;
-import com.utsavi.bookmyshow.entity.Show;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 @Getter
 @Entity
-public class ShowSeatType extends BaseModel{
+public class ShowSeatType extends BaseModel {
   @ManyToOne
   private Show show;//Once show can be part of a lot of ShowSeatType
 

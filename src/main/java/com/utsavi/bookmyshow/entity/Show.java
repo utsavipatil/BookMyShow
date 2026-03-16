@@ -2,9 +2,6 @@ package com.utsavi.bookmyshow.entity;
 
 import com.utsavi.bookmyshow.enums.Feature;
 import com.utsavi.bookmyshow.enums.Language;
-import com.utsavi.bookmyshow.model.BaseModel;
-import com.utsavi.bookmyshow.model.ShowSeat;
-import com.utsavi.bookmyshow.model.ShowSeatType;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -13,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Table(name = "shows")
 public class Show extends BaseModel {
   @ManyToOne
   private Theatre theatre;
@@ -31,10 +29,14 @@ public class Show extends BaseModel {
   @OneToMany
   private List<ShowSeatType> showSeatTypes;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   private Language language;
 
-  @Enumerated
+  @Enumerated(EnumType.STRING)
   @ElementCollection
+  @CollectionTable(
+      name = "show_features",
+      joinColumns = @JoinColumn(name = "show_id")
+  )
   private List<Feature> features;
 }
