@@ -6,9 +6,15 @@ import com.utsavi.bookmyshow.entity.Booking;
 import com.utsavi.bookmyshow.enums.ResponseStatus;
 import com.utsavi.bookmyshow.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/api/bookings")
 public class BookingController {
 
   BookingService bookingService;
@@ -18,20 +24,21 @@ public class BookingController {
     this.bookingService = bookingService;
   }
 
-  public BookTicketResponse bookTicket(BookTicketRequest request){
+  @PostMapping
+  public ResponseEntity<BookTicketResponse> bookTicket(@RequestBody BookTicketRequest request){
     
     try{
       Booking booking = bookingService.bookTicket(request.getShowId(), request.getUserId(), request.getShowSeatIds());
 
-      return BookTicketResponse.builder()
+      return ResponseEntity.status(HttpStatus.CREATED).body(BookTicketResponse.builder()
           .responseStatus(ResponseStatus.SUCCESS)
           .bookingId(booking.getId())
-          .message("Booking Confirmed. Please make Payment !").build();
+          .message("Booking Confirmed. Please make Payment !").build());
     }catch(Exception exception){
 
-      return BookTicketResponse.builder()
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BookTicketResponse.builder()
           .responseStatus(ResponseStatus.FAILURE)
-          .message("Booking failed: " + exception.getMessage()).build();
+          .message("Booking failed: " + exception.getMessage()).build());
     }
   }
 }

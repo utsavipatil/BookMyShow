@@ -36,6 +36,6 @@ public class Booking extends BaseModel {
 
   private Integer totalAmount;
 
-  @OneToMany
+  @OneToMany(mappedBy = "booking")
   private List<Payment> payments; //For Partial Pay
 }

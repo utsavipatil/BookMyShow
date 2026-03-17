@@ -1,6 +1,7 @@
 package com.utsavi.bookmyshow.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class Theatre extends BaseModel {
   private Region region;
 
   @OneToMany
+  @JoinColumn(name = "theater_id")
   private List<Screen> screens;
 
 //  @OneToMany

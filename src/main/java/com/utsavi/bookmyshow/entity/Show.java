@@ -23,10 +23,10 @@ public class Show extends BaseModel {
 
   private Date time;
 
-  @OneToMany
-  private List<ShowSeat> showSeats;
+  @OneToMany(mappedBy = "show")
+  private List<ShowSeat> showSeats; 
 
-  @OneToMany
+  @OneToMany(mappedBy = "show")
   private List<ShowSeatType> showSeatTypes;
 
   @Enumerated(EnumType.STRING)

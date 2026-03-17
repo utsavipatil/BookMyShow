@@ -12,6 +12,7 @@ public class Screen extends BaseModel {
   private String name;
 
   @OneToMany
+  @JoinColumn(name = "screen_id")
   private List<Seat> seats;
 
   /* ManyToMany - Feature is enum so hibernate won't take Cardinality, If any such thing happen this needs to be given by elementCollection  */

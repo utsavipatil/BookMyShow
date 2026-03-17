@@ -16,6 +16,10 @@ spring:
       max-lifetime: 1800000
       pool-name: BookMyShowHikariPool
 
+  sql:
+    init:
+      mode: always
+
   jpa:
     hibernate:
       ddl-auto: update #Update for persistence
@@ -24,3 +28,4 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+    defer-datasource-initialization: true

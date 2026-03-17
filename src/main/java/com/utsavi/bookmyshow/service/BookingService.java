@@ -12,6 +12,8 @@ import com.utsavi.bookmyshow.repository.ShowSeatRepository;
 import com.utsavi.bookmyshow.repository.UserReposiotry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,22 +22,29 @@ import java.util.Optional;
 @Service
 public class BookingService {
 
-  BookingRepository bookingRepository;
+  private final BookingRepository bookingRepository;
 
-  ShowRepository showRepository;
+  private final ShowRepository showRepository;
 
-  ShowSeatRepository showSeatRepository;
+  private final ShowSeatRepository showSeatRepository;
 
-  UserReposiotry userReposiotry;
+  private final UserReposiotry userReposiotry;
 
   @Autowired
-  public BookingService(BookingRepository bookingRepository, ShowRepository showRepository, ShowSeatRepository showSeatRepository, UserReposiotry userReposiotry){
+  public BookingService(BookingRepository bookingRepository,
+                        ShowRepository showRepository,
+                        ShowSeatRepository showSeatRepository,
+                        UserReposiotry userReposiotry){
     this.bookingRepository = bookingRepository;
     this.showRepository = showRepository;
     this.showSeatRepository = showSeatRepository;
+    this.userReposiotry = userReposiotry;
   }
 
-  public Booking bookTicket(Long showId, Long userId, List<Long> showSeatIds){
+  /* Serializable - takes extra work like snapshot we just need lock on rows so add on repository level
+  * It locks whole function rather, if we just lock rows then also our work can be done */
+  @Transactional
+  public Booking  bookTicket(Long showId, Long userId, List<Long> showSeatIds){
     /* 1) get user from db */
     Optional<User> userOptional = userReposiotry.findById(userId);
     User user;
@@ -54,7 +63,7 @@ public class BookingService {
     Show show = showOptional.get();
 
     /* 3) get show seats from db 4) Check if all seats are available */
-    List<ShowSeat> showSeatList = showSeatRepository.findAllByIdAndSeatStatus(showSeatIds , SeatStatus.AVAILABLE);
+    List<ShowSeat> showSeatList = showSeatRepository.findAllByIdInAndSeatStatus( showSeatIds , SeatStatus.AVAILABLE);
 
     if(showSeatList.size() < showSeatIds.size()){
       throw new RuntimeException("Certain show seats are not available !!!");

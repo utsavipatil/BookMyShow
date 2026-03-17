@@ -1,10 +1,7 @@
 package com.utsavi.bookmyshow.entity;
 
 import com.utsavi.bookmyshow.enums.SeatStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +18,9 @@ public class ShowSeat extends BaseModel {
 
   @Enumerated(EnumType.STRING)
   private SeatStatus seatStatus;
+
+  @Version /* Optimistic Lock */
+  private Long version;
 }
 
 //show seat price
